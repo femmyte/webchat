@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+const initialState = JSON.parse(localStorage.getItem("item")) || {
   value: "",
 };
 
@@ -10,11 +10,11 @@ export const userSlice = createSlice({
   reducers: {
     addUser: (state, action) => {
       state.value += action.payload;
+      localStorage.setItem("user", JSON.stringify(state.value));
     },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { addUser } = userSlice.actions;
 
 export default userSlice.reducer;
