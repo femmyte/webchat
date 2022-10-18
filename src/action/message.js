@@ -1,25 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import type { PayloadAction } from "@reduxjs/toolkit";
-
-export const messageSlice = createSlice({
-  name: "message",
-  initialState: {
-    message: "",
+import dateFormat, { masks } from "dateformat";
+const now = new Date();
+let id = now.getTime().toString();
+const userMessageSlice = createSlice({
+  name: "messages",
+  initialState: JSON.parse(localStorage.getItem("item")) || {
+    message: [],
+    id: 1,
   },
   reducers: {
-    message: (state, action) => {
-      state.message += action.payload;
+    addMessage: (state, action) => {
+      state.message.push(action.payload, dateFormat(now, "longTime"));
+      state.id += id;
+      localStorage.setItem(
+        "item",
+        JSON.stringify({
+          message: state.message,
+          id: state.id,
+        })
+      );
     },
   },
 });
+export const { addMessage } = userMessageSlice.actions;
 
-// Action creators are generated for each case reducer function
-export const { message } = messageSlice.actions;
-
-export default messageSlice.reducer;
-
-// export function user() {
-//   return {
-//     type: "ADD",
-//   };
-// }
+export default userMessageSlice.reducer;
