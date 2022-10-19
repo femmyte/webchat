@@ -1,27 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 import dateFormat, { masks } from "dateformat";
 const now = new Date();
 let id = now.getTime().toString();
+
 const userMessageSlice = createSlice({
   name: "messages",
   initialState: JSON.parse(localStorage.getItem("item")) || {
     message: [],
-    id: 1,
+    id: JSON.parse(localStorage.getItem("userId")),
   },
   reducers: {
+    addUserId: (state, action) => {
+      state.id = action.payload;
+    },
     addMessage: (state, action) => {
-      state.message.push(action.payload, dateFormat(now, "longTime"));
-      state.id += id;
-      localStorage.setItem(
+      state.message.push({
+        m: action.payload,
+        time: dateFormat(now, "longTime"),
+        userId: state.id,
+      });
+      window.localStorage.setItem(
         "item",
         JSON.stringify({
           message: state.message,
-          id: state.id,
         })
       );
+      window.dispatchEvent(new Event("storage"));
     },
   },
 });
-export const { addMessage } = userMessageSlice.actions;
+export const { addMessage, addUserId } = userMessageSlice.actions;
 
 export default userMessageSlice.reducer;

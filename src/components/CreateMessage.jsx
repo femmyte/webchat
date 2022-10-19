@@ -1,35 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../action/message";
-
+import sendIcon from "../img/send-icons.png";
 const CreateMessage = () => {
   const dispatch = useDispatch();
-  //   const message = useSelector((state) => state.addMessage.value);
   const [msg, setMsg] = useState("");
+
   const handleSubmit = (e) => {
+    window.location.reload();
     e.preventDefault();
-    //   dispatch(messages(e.target.value.trim()));
     dispatch(addMessage(msg));
     setMsg("");
-    console.log(msg);
   };
+
   return (
     <div>
-      <div style={{ textAlign: "center", margin: "30vh auto", width: "70%" }}>
-        <form onSubmit={(event) => handleSubmit(event)}>
-          <textarea
+      <form onSubmit={(event) => handleSubmit(event)}>
+        <div
+          className="w-full flex justify-between items-center border border-gray-400 py-3 px-7"
+          id="name"
+        >
+          <input
             id="name"
             onChange={(e) => setMsg(e.target.value)}
             required
-            placeholder=""
+            placeholder="create New Message"
             value={msg}
-          ></textarea>
+            className="w-full"
+            autoFocus
+          />
 
           <button className="mt-[15px]" type="submit">
-            Submit
+            <img src={sendIcon} />
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
