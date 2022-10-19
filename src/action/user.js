@@ -4,17 +4,16 @@ const userSlice = createSlice({
   name: "users",
   initialState: JSON.parse(localStorage.getItem("user")) || {
     user: [],
-    userId: 1,
+    // userId: 1,
   },
   reducers: {
     addUser: (state, action) => {
-      state.user.push(action.payload);
-      state.userId += 1;
+      const { user, userId } = action.payload;
+      state.user.push({ user, userId });
       window.localStorage.setItem(
         "user",
         JSON.stringify({
           user: state.user,
-          userId: state.userId,
         })
       );
       window.dispatchEvent(new Event("storage"));
