@@ -11,7 +11,10 @@ const userMessageSlice = createSlice({
   },
   reducers: {
     addMessage: (state, action) => {
-      state.message.push(action.payload, dateFormat(now, "longTime"));
+      state.message.push({
+        m: action.payload,
+        time: dateFormat(now, "longTime"),
+      });
       state.id += 1;
       window.localStorage.setItem(
         "item",
