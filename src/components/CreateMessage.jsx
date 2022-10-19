@@ -7,6 +7,7 @@ const CreateMessage = () => {
   const [msg, setMsg] = useState("");
 
   const handleSubmit = (e) => {
+    window.location.reload();
     e.preventDefault();
     dispatch(addMessage(msg));
     setMsg("");
