@@ -13,3 +13,13 @@ body {
   list-style-type: none;
   /* overflow-block: hidden; */
 }
+input:focus{
+  outline: none;
+}
+.no-scrollbar::-webkit-scrollbar{
+  display: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
