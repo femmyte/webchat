@@ -16,7 +16,6 @@ const UserRegAlert = () => {
   const handleSubmit = (e) => {
     // e.preventDefault();
 
-    user.push({ user: addNewUser, userId: userId });
     dispatch(addUser({ user: addNewUser, userId: userId }));
     dispatch(addUserId());
     handleFetch();
